@@ -1,39 +1,41 @@
-# 🎧 音视频笔记工具 (audio-notes)
+# 🎧 audio-notes
 
-把**一段音频**和它**对应的文字稿**自动对齐到时间点,让你能边听边看高亮跟读,听到精彩处一键标记,最后导出带时间戳的学习笔记。
+[简体中文](README.zh-CN.md) · **English**
 
-> 解决一个具体痛点:用"听"代替"读"时,听到某句话突然有灵感,却不知道它在书里哪个位置、来不及记。这个工具让你**只按一下,就自动记下"这段声音对应书里的哪句话"**。
+Automatically aligns **an audio file** with its **matching transcript** down to the second, so you can read along with live highlighting while you listen, mark anything that strikes you with one key, and export timestamped study notes.
 
-全程**在你自己电脑上运行**,音频和笔记都不上传到任何服务器,免费、离线、隐私安全。
+> Solves one specific pain point: when you *listen* instead of *read*, a sentence suddenly sparks an idea — but you don't know where it is in the book, and the moment passes before you can write it down. This tool lets you **press one key and automatically record "which sentence in the book this moment of audio corresponds to."**
 
----
-
-## 它能做什么
-
-- **上传**:1 个音频(mp3 / wav / m4a / aac / flac / ogg)+ 1 份文字稿(txt 或文本型 pdf)
-- **自动对齐**:把文字稿的每句话,对齐到音频里的起止秒数(中英文都支持)
-- **跟读高亮**:播到哪句,哪句就高亮,并自动滚到屏幕中央
-- **点句跳转**:点文字里任意一句,音频跳到那一刻播放
-- **一键标记**:听到重点按 `M`,记下当前时间 + 你的备注
-- **导出笔记**:一键导出 Markdown,含逐句时间戳全文 + 你标记的重点
+Everything runs **locally on your own machine**. Your audio and notes are never uploaded to any server — free, offline, and private.
 
 ---
 
-## 它的"大脑"从哪来(关于模型)
+## What it does
 
-对齐这件事由一个 AI 模型完成(约 1.2GB)。这个模型**不在本仓库里**,而是**首次运行时自动从 [Hugging Face](https://huggingface.co/deskpai/ctc_forced_aligner) 下载**到你电脑,之后离线可用。
-
-- 模型来源:基于 Meta 开源的 MMS 多语言语音模型,由第三方打包发布。
-- 许可:`CC-BY-NC`(个人学习自用免费;商用需另换模型)。
-- 你无需手动下载,程序会自动处理。第一次对齐会比较慢(下模型 + 计算),之后就快了。
+- **Upload**: 1 audio file (mp3 / wav / m4a / aac / flac / ogg) + 1 transcript (txt or text-based pdf)
+- **Auto-align**: maps every sentence of the transcript to its start/end time in the audio (works for both Chinese and English)
+- **Read-along highlight**: the sentence being spoken is highlighted and auto-scrolled to the center of the screen
+- **Click to jump**: click any sentence to jump the audio to that moment and play
+- **One-key mark**: press `M` on anything important to record the current time + your note
+- **Export notes**: one click to export Markdown — the full text with per-sentence timestamps plus everything you marked
 
 ---
 
-## 怎么用(macOS 最简方式)
+## Where its "brain" comes from (about the model)
 
-### 准备(只做一次)
+The alignment is done by an AI model (~1.2 GB). This model is **not stored in this repo** — it is **automatically downloaded from [Hugging Face](https://huggingface.co/deskpai/ctc_forced_aligner)** to your machine on first run, then works offline afterwards.
 
-需要 Python 3.10+ 和 ffmpeg。装好后,在项目目录里建好环境并装依赖:
+- Source: based on Meta's open-source MMS multilingual speech model, repackaged by a third party.
+- License: `CC-BY-NC` (free for personal study/use; commercial use requires a different model).
+- You don't need to download anything manually — the program handles it. The first alignment is slower (download + compute); it's fast after that.
+
+---
+
+## How to use it (easiest way on macOS)
+
+### Setup (one time only)
+
+You need Python 3.10+ and ffmpeg. Once installed, create the environment and install dependencies in the project folder:
 
 ```bash
 cd audio-notes
@@ -42,23 +44,23 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-ffmpeg 如果没装:`brew install ffmpeg`
+If ffmpeg isn't installed: `brew install ffmpeg`
 
-### 日常使用(每次)
+### Daily use (every time)
 
-**双击项目里的 `启动.command`** 即可:
+**Double-click `启动.command`** in the project folder:
 
-1. 会弹出一个黑色终端窗口(这是后端服务,别关)
-2. 几秒后浏览器自动打开工具页面
-3. 在页面里上传音频 + 文字稿,开始使用
+1. A black terminal window pops up (this is the backend service — don't close it)
+2. After a few seconds your browser opens the tool automatically
+3. Upload an audio file + transcript in the page and start using it
 
-> 第一次双击时,macOS 可能提示"来自身份不明的开发者"。解决:右键 `启动.command` → 打开 → 再点"打开"。只需做一次。
+> On the first double-click, macOS may warn "from an unidentified developer." Fix: right-click `启动.command` → Open → click "Open" again. Only needed once.
 
-**关闭**:直接关掉那个黑色终端窗口即可(窗口关了,网页就停了)。
+**To stop**: just close that black terminal window (close the window, the page stops).
 
-### 手动启动(备用)
+### Manual start (fallback)
 
-如果不想用脚本,也可以手动:
+If you'd rather not use the script:
 
 ```bash
 source .venv/bin/activate
@@ -66,65 +68,65 @@ cd backend
 uvicorn main:app --port 8000
 ```
 
-然后浏览器打开 http://localhost:8000
+Then open http://localhost:8000 in your browser.
 
 ---
 
-## 怎么准备音频和文字稿
+## How to prepare audio and transcript
 
-1. **音频**:可以是有声书、播客,或用文字转语音(TTS)工具(如 [ebook2audiobook](https://github.com/DrewThomasson/ebook2audiobook))把电子书转成的音频。
-2. **文字稿**:和音频**内容一致、顺序一致**的 txt 或文本型 pdf。
+1. **Audio**: an audiobook, a podcast, or audio generated from an ebook with a text-to-speech (TTS) tool such as [ebook2audiobook](https://github.com/DrewThomasson/ebook2audiobook).
+2. **Transcript**: a txt or text-based pdf whose **content and order match the audio**.
 
-> ⚠️ **关键:音频和文字稿必须"配套"。**
-> 对齐器会把你给的全部文字,摊到你给的整段音频上。所以:
-> - 如果你只转了**第 1 章的音频**,就只给**第 1 章的文字**,不要给整本书的文字 —— 否则会把整本书错误地摊到第 1 章音频上,时间戳全乱。
-> - 推荐**一章一个项目**:转一章、听一章、标一章。每章各自有独立的时间戳和笔记,互不干扰。
-
----
-
-## 键盘快捷键
-
-| 键 | 作用 |
-|----|------|
-| 空格 | 播放 / 暂停 |
-| ← / → | 后退 / 前进 5 秒 |
-| M | 标记当前时刻 |
+> ⚠️ **Key point: the audio and transcript must be a matching pair.**
+> The aligner spreads *all* the text you give it across the *entire* audio you give it. So:
+> - If you only converted **Chapter 1's audio**, give it **only Chapter 1's text** — not the whole book. Otherwise it will wrongly spread the whole book across Chapter 1's audio and the timestamps will be completely off.
+> - Recommended: **one project per chapter** — convert a chapter, listen to it, mark it. Each chapter has its own independent timestamps and notes, with no interference.
 
 ---
 
-## 目录结构
+## Keyboard shortcuts
+
+| Key | Action |
+|-----|--------|
+| Space | Play / Pause |
+| ← / → | Back / Forward 5 seconds |
+| M | Mark the current moment |
+
+---
+
+## Project structure
 
 ```
 audio-notes/
-├── 启动.command       # 双击启动(macOS)
+├── 启动.command       # Double-click to launch (macOS)
 ├── backend/
-│   ├── main.py        # FastAPI:上传、对齐、取结果、导出
-│   ├── align.py       # 强制对齐封装(指向本地模型)
-│   ├── textload.py    # txt/pdf 读取 + 断句
-│   └── storage.py     # 项目 JSON 存取
-├── frontend/          # 纯 HTML/CSS/JS,无需打包
+│   ├── main.py        # FastAPI: upload, align, fetch results, export
+│   ├── align.py       # Forced-alignment wrapper (points to local model)
+│   ├── textload.py    # txt/pdf reading + sentence splitting
+│   └── storage.py     # Project JSON read/write
+├── frontend/          # Plain HTML/CSS/JS, no build step
 │   ├── index.html
 │   ├── app.js
 │   └── style.css
-├── models/            # 对齐模型(首次运行自动下载,不进 git)
-├── data/              # 上传的音频 + 对齐结果(自动生成,不进 git)
+├── models/            # Alignment model (auto-downloaded on first run, not in git)
+├── data/              # Uploaded audio + alignment results (auto-generated, not in git)
 └── requirements.txt
 ```
 
 ---
 
-## 已知限制
+## Known limitations
 
-- **pdf 仅支持文本型**(能复制文字的);扫描件(图片型)抽不出文字,会提示。
-- 默认对齐模型为 `CC-BY-NC` 许可,个人自用没问题,商用需换模型。
-- 这一版只做"音频 + 文字稿 → 对齐"。语音识别(无文稿音频)、文字转语音、视频/YouTube 导入、AI 摘要、多章节合并管理等,未来再加。
-- 目前在 macOS + Python 3.13 上验证通过。
+- **pdf must be text-based** (text you can select/copy); scanned (image) pdfs have no extractable text and will show an error.
+- The default alignment model is `CC-BY-NC` licensed — fine for personal use, but commercial use requires a different model.
+- This version only does "audio + transcript → alignment." Speech recognition (audio without a transcript), text-to-speech, video/YouTube import, AI summaries, multi-chapter merge management, etc. will come later.
+- Verified on macOS + Python 3.13 so far.
 
 ---
 
-## 技术栈
+## Tech stack
 
-- 后端:Python + [FastAPI](https://fastapi.tiangolo.com/) + [uvicorn](https://www.uvicorn.org/)
-- 对齐:[ctc-forced-aligner](https://pypi.org/project/ctc-forced-aligner/)(ONNX,Meta MMS 模型)
-- 音频处理:ffmpeg
-- 前端:原生 HTML / CSS / JavaScript(无框架、无构建)
+- Backend: Python + [FastAPI](https://fastapi.tiangolo.com/) + [uvicorn](https://www.uvicorn.org/)
+- Alignment: [ctc-forced-aligner](https://pypi.org/project/ctc-forced-aligner/) (ONNX, Meta MMS model)
+- Audio processing: ffmpeg
+- Frontend: vanilla HTML / CSS / JavaScript (no framework, no build)
