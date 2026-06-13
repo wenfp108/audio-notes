@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>音视频笔记工具</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>🎧 音视频笔记工具</h1>
+    <p class="sub">音频 + 文稿 → 时间戳对齐 · 跟读高亮 · 标记导出</p>
+  </header>
+
+  <!-- 上传区 -->
+  <section id="upload-panel" class="panel">
+    <h2>① 上传音频和文稿</h2>
+    <div class="row">
+      <label>音频文件
+        <input type="file" id="audio-file" accept=".mp3,.wav,.m4a,.aac,.flac,.ogg">
+      </label>
+      <label>文稿(txt / pdf)
+        <input type="file" id="transcript-file" accept=".txt,.pdf">
+      </label>
+    </div>
+    <button id="upload-btn">开始对齐</button>
+    <p id="upload-status" class="status"></p>
+  </section>
+
+  <!-- 工作区 -->
+  <section id="workspace" class="panel hidden">
+    <h2 id="proj-title">学习</h2>
+
+    <audio id="player" preload="auto"></audio>
+
+    <div class="controls">
+      <button data-seek="-30">⏪30</button>
+      <button data-seek="-10">⏪10</button>
+      <button data-seek="-5">⏪5</button>
+      <button id="play-btn">▶ 播放</button>
+      <button data-seek="5">5⏩</button>
+      <button data-seek="10">10⏩</button>
+      <button data-seek="30">30⏩</button>
+
+      <label class="speed">速度
+        <select id="speed">
+          <option value="0.5">0.5x</option>
+          <option value="0.75">0.75x</option>
+          <option value="1" selected>1.0x</option>
+          <option value="1.25">1.25x</option>
+          <option value="1.5">1.5x</option>
+          <option value="2">2.0x</option>
+        </select>
+      </label>
+
+      <button id="mark-btn" class="mark">⭐ 标记此刻</button>
+    </div>
+
+    <div class="progress-wrap">
+      <span id="cur-time">00:00</span>
+      <input type="range" id="progress" min="0" max="100" value="0" step="0.1">
+      <span id="dur-time">00:00</span>
+    </div>
+
+    <div class="two-col">
+      <div class="transcript-col">
+        <h3>文稿(点句子可跳转)</h3>
+        <div id="transcript"></div>
+      </div>
+      <div class="marks-col">
+        <div class="marks-head">
+          <h3>标记</h3>
+          <button id="export-btn">导出 Markdown</button>
+        </div>
+        <ul id="marks-list"></ul>
+      </div>
+    </div>
+  </section>
+
+  <script src="app.js"></script>
+</body>
+</html>

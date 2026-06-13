@@ -1,0 +1,8 @@
+fastapi
+uvicorn[standard]
+python-multipart
+pypdf
+# 强制对齐引擎(PyPI 正式发布版,自带 cp313 wheel)
+ctc-forced-aligner==1.0.2
+# 中文罗马化必需(ctc-forced-aligner 的隐式依赖,不写会漏装)
+unidecode

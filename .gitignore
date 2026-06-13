@@ -1,0 +1,31 @@
+# ====== 大文件 / 自动生成,不进仓库 ======
+
+# 对齐模型(约 1.2GB):首次运行自动从 Hugging Face 下载,不该提交
+models/
+*.onnx
+
+# Python 虚拟环境(456MB):每人本地用 requirements.txt 自己建
+.venv/
+venv/
+
+# 用户上传的音频 + 对齐结果(隐私数据,自动生成)
+data/
+
+# ====== Python 缓存 ======
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# ====== 测试时生成的音频(文本样例 test_sample.txt 保留,音频太大不传)======
+*.aiff
+*.wav
+*.mp3
+*.m4a
+*.aac
+*.flac
+*.ogg
+
+# ====== macOS / 编辑器垃圾 ======
+.DS_Store
+.vscode/
+.idea/
