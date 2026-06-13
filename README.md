@@ -48,13 +48,13 @@ If ffmpeg isn't installed: `brew install ffmpeg`
 
 ### Daily use (every time)
 
-**Double-click `启动.command`** in the project folder:
+**Double-click `start.command`** in the project folder:
 
 1. A black terminal window pops up (this is the backend service — don't close it)
 2. After a few seconds your browser opens the tool automatically
 3. Upload an audio file + transcript in the page and start using it
 
-> On the first double-click, macOS may warn "from an unidentified developer." Fix: right-click `启动.command` → Open → click "Open" again. Only needed once.
+> On the first double-click, macOS may warn "from an unidentified developer." Fix: right-click `start.command` → Open → click "Open" again. Only needed once.
 
 **To stop**: just close that black terminal window (close the window, the page stops).
 
@@ -98,7 +98,7 @@ Then open http://localhost:8000 in your browser.
 
 ```
 audio-notes/
-├── 启动.command       # Double-click to launch (macOS)
+├── start.command       # Double-click to launch (macOS)
 ├── backend/
 │   ├── main.py        # FastAPI: upload, align, fetch results, export
 │   ├── align.py       # Forced-alignment wrapper (points to local model)
