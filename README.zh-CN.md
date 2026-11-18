@@ -1,23 +1,31 @@
-# 🎧 音视频笔记工具 (audio-notes)
+# 🎧 AudioNotes · 音视频笔记
 
 **简体中文** · [English](README.md)
 
-把**一段音频**和它**对应的文字稿**自动对齐到时间点,让你能边听边看高亮跟读,听到精彩处一键标记,最后导出带时间戳的学习笔记。
+把**一段音频**和它**对应的文字稿**自动对齐到时间点，让你能边听边看高亮跟读，听到精彩处一键标记，最后导出带时间戳的学习笔记。
 
-> 解决一个具体痛点:用"听"代替"读"时,听到某句话突然有灵感,却不知道它在书里哪个位置、来不及记。这个工具让你**只按一下,就自动记下"这段声音对应书里的哪句话"**。
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/preview-dark.png">
+  <img src="docs/preview-light.png" alt="AudioNotes 界面：音频播放器、高亮跟读的文稿与带时间戳的标记列表" width="100%">
+</picture>
 
-全程**在你自己电脑上运行**,音频和笔记都不上传到任何服务器,免费、离线、隐私安全。
+> 解决一个具体痛点：用“听”代替“读”时，听到某句话突然有灵感，却不知道它在书里哪个位置、来不及记。这个工具让你**只按一下，就自动记下“这段声音对应书里的哪句话”**。
+
+全程**在你自己电脑上运行**，音频和笔记都不上传到任何服务器，免费、离线、隐私安全。
+
+> **想先看看界面？** 浏览器直接打开 [`frontend/index.html?demo=1`](frontend/index.html?demo=1)，载入示例数据，不需要后端、不需要安装。
 
 ---
 
 ## 它能做什么
 
-- **上传**:1 个音频(mp3 / wav / m4a / aac / flac / ogg)+ 1 份文字稿(txt 或文本型 pdf)
-- **自动对齐**:把文字稿的每句话,对齐到音频里的起止秒数(中英文都支持)
-- **跟读高亮**:播到哪句,哪句就高亮,并自动滚到屏幕中央
-- **点句跳转**:点文字里任意一句,音频跳到那一刻播放
-- **一键标记**:听到重点按 `M`,记下当前时间 + 你的备注
-- **导出笔记**:一键导出 Markdown,含逐句时间戳全文 + 你标记的重点
+- **上传**：1 个音频（mp3 / wav / m4a / aac / flac / ogg）+ 1 份文字稿（txt 或文本型 pdf），支持拖拽
+- **自动对齐**：把文字稿的每句话，对齐到音频里的起止秒数（中英文都支持）
+- **跟读高亮**：播到哪句，哪句就高亮并自动居中；你手动往回翻时，自动滚动会暂停，不打扰阅读
+- **点句跳转**：点文字里任意一句，音频跳到那一刻播放
+- **一键标记**：按 `M`，写备注，回车即可，时间戳自动记录
+- **导出笔记**：一键导出 Markdown，含逐句时间戳全文 + 你标记的重点
+- **明暗主题**：跟随系统自动切换
 
 ---
 
@@ -98,18 +106,20 @@ uvicorn main:app --port 8000
 
 ```
 audio-notes/
-├── start.command       # 双击启动(macOS)
+├── start.command       # 双击启动（macOS）
 ├── backend/
-│   ├── main.py        # FastAPI:上传、对齐、取结果、导出
-│   ├── align.py       # 强制对齐封装(指向本地模型)
+│   ├── main.py        # FastAPI：上传、对齐、取结果、导出
+│   ├── align.py       # 强制对齐封装（指向本地模型）
 │   ├── textload.py    # txt/pdf 读取 + 断句
 │   └── storage.py     # 项目 JSON 存取
-├── frontend/          # 纯 HTML/CSS/JS,无需打包
-│   ├── index.html
+├── frontend/          # 纯 HTML/CSS/JS，无需打包
+│   ├── index.html     # 加 ?demo=1 可无后端预览界面
 │   ├── app.js
 │   └── style.css
-├── models/            # 对齐模型(首次运行自动下载,不进 git)
-├── data/              # 上传的音频 + 对齐结果(自动生成,不进 git)
+├── docs/              # README 截图
+├── models/            # 对齐模型（首次运行自动下载，不进 git）
+├── data/              # 上传的音频 + 对齐结果（自动生成，不进 git）
+├── LICENSE
 └── requirements.txt
 ```
 
@@ -130,3 +140,11 @@ audio-notes/
 - 对齐:[ctc-forced-aligner](https://pypi.org/project/ctc-forced-aligner/)(ONNX,Meta MMS 模型)
 - 音频处理:ffmpeg
 - 前端:原生 HTML / CSS / JavaScript(无框架、无构建)
+
+---
+
+## 许可
+
+本仓库代码使用 [MIT 许可](LICENSE)。
+
+对齐模型在首次运行时从 Hugging Face 下载,采用 `CC-BY-NC` 许可;如需商用,请先确认其条款或更换模型。

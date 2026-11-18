@@ -1,23 +1,31 @@
-# 🎧 audio-notes
+# 🎧 AudioNotes
 
 [简体中文](README.zh-CN.md) · **English**
 
 Automatically aligns **an audio file** with its **matching transcript** down to the second, so you can read along with live highlighting while you listen, mark anything that strikes you with one key, and export timestamped study notes.
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/preview-dark.png">
+  <img src="docs/preview-light.png" alt="AudioNotes: audio player with a highlighted transcript and a list of timestamped marks" width="100%">
+</picture>
+
 > Solves one specific pain point: when you *listen* instead of *read*, a sentence suddenly sparks an idea — but you don't know where it is in the book, and the moment passes before you can write it down. This tool lets you **press one key and automatically record "which sentence in the book this moment of audio corresponds to."**
 
 Everything runs **locally on your own machine**. Your audio and notes are never uploaded to any server — free, offline, and private.
+
+> **Want to see the UI first?** Open [`frontend/index.html?demo=1`](frontend/index.html?demo=1) in your browser — it loads sample data and needs no backend or install.
 
 ---
 
 ## What it does
 
-- **Upload**: 1 audio file (mp3 / wav / m4a / aac / flac / ogg) + 1 transcript (txt or text-based pdf)
+- **Upload**: 1 audio file (mp3 / wav / m4a / aac / flac / ogg) + 1 transcript (txt or text-based pdf), drag & drop or click
 - **Auto-align**: maps every sentence of the transcript to its start/end time in the audio (works for both Chinese and English)
-- **Read-along highlight**: the sentence being spoken is highlighted and auto-scrolled to the center of the screen
+- **Read-along highlight**: the sentence being spoken is highlighted and auto-scrolled to the center — and it stops auto-scrolling the moment you scroll up to re-read something
 - **Click to jump**: click any sentence to jump the audio to that moment and play
-- **One-key mark**: press `M` on anything important to record the current time + your note
+- **One-key mark**: press `M`, type a note, hit `Enter` — the timestamp is captured for you
 - **Export notes**: one click to export Markdown — the full text with per-sentence timestamps plus everything you marked
+- **Light & dark**: follows your system theme, no toggle to fiddle with
 
 ---
 
@@ -105,11 +113,13 @@ audio-notes/
 │   ├── textload.py    # txt/pdf reading + sentence splitting
 │   └── storage.py     # Project JSON read/write
 ├── frontend/          # Plain HTML/CSS/JS, no build step
-│   ├── index.html
+│   ├── index.html     # add ?demo=1 for a backend-free preview
 │   ├── app.js
 │   └── style.css
+├── docs/              # README screenshots
 ├── models/            # Alignment model (auto-downloaded on first run, not in git)
 ├── data/              # Uploaded audio + alignment results (auto-generated, not in git)
+├── LICENSE
 └── requirements.txt
 ```
 
@@ -130,3 +140,11 @@ audio-notes/
 - Alignment: [ctc-forced-aligner](https://pypi.org/project/ctc-forced-aligner/) (ONNX, Meta MMS model)
 - Audio processing: ffmpeg
 - Frontend: vanilla HTML / CSS / JavaScript (no framework, no build)
+
+---
+
+## License
+
+The code in this repository is [MIT licensed](LICENSE).
+
+The alignment model is downloaded at runtime from Hugging Face and is licensed `CC-BY-NC` — check its terms before any commercial use.
