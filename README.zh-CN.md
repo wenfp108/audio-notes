@@ -13,7 +13,7 @@
 
 全程**在你自己电脑上运行**，音频和笔记都不上传到任何服务器，免费、离线、隐私安全。
 
-> **想先看看界面？** 浏览器直接打开 [`frontend/index.html?demo=1`](frontend/index.html?demo=1)，载入示例数据，不需要后端、不需要安装。
+> **想先看看界面？** 有[在线预览](https://wenfp108.github.io/audio-notes/)，用示例数据在浏览器里直接跑，不需要后端、不需要安装。（也可以本地打开 `frontend/index.html?demo=1`。）
 
 ---
 

@@ -13,7 +13,7 @@ Automatically aligns **an audio file** with its **matching transcript** down to 
 
 Everything runs **locally on your own machine**. Your audio and notes are never uploaded to any server — free, offline, and private.
 
-> **Want to see the UI first?** Open [`frontend/index.html?demo=1`](frontend/index.html?demo=1) in your browser — it loads sample data and needs no backend or install.
+> **Want to see the UI first?** There's a [live demo](https://wenfp108.github.io/audio-notes/) — it runs entirely in your browser with sample data, no backend or install needed. (Or open `frontend/index.html?demo=1` locally.)
 
 ---
 
